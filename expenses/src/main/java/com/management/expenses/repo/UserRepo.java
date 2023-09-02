@@ -1,6 +1,6 @@
-package com.management.expensive.repo;
+package com.management.expenses.repo;
 
-import com.management.expensive.model.User;
+import com.management.expenses.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

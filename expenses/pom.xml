@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.management</groupId>
-	<artifactId>expensive</artifactId>
+	<artifactId>expenses</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ExpensiveManagementBE</name>
+	<name>ExpensesManagementBE</name>
 	<description>Project for Expense management</description>
 	<properties>
 		<java.version>17</java.version>
