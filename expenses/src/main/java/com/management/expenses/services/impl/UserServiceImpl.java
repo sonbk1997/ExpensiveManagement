@@ -3,6 +3,9 @@ package com.management.expenses.services.impl;
 import com.management.expenses.model.User;
 import com.management.expenses.repo.UserRepo;
 import com.management.expenses.services.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +23,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAllUser() {
         return userRepo.findAll();
+    }
+
+    @Override
+    public Page<User> findByPage(int pageNumber) {
+        int pageSize = 5;
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+
+        Page<User> page = userRepo.findAll(pageable);
+        return page;
     }
 
     @Override

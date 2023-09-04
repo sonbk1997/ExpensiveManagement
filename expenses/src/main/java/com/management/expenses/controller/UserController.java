@@ -2,9 +2,13 @@ package com.management.expenses.controller;
 
 import com.management.expenses.model.User;
 import com.management.expenses.services.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -19,9 +23,27 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<User> findAllUser() {
         return userService.findAllUser();
+    }
+
+    @GetMapping("/page/{page}")
+    public Object findAllUserByPage(@PathVariable("page") int page) {
+        Page<User> pageUser = userService.findByPage(page);
+
+        List<User> listUser = pageUser.getContent();
+
+        List<User> numberOfAllUsers = userService.findAllUser();
+
+        Map<String, Object> object = new HashMap<>();
+        object.put("page", page);
+        object.put("per_page", 5);
+        object.put("total", numberOfAllUsers.size());
+        object.put("total_pages", numberOfAllUsers.size()/5 + 1);
+        object.put("data", listUser);
+
+        return object;
     }
 
     @GetMapping("/{id}")
@@ -30,13 +52,13 @@ public class UserController {
     }
 
     @PostMapping
-    public void saveUser(@RequestBody User user) {
-        userService.saveUser(user);
+    public User saveUser(@RequestBody User user) {
+        return userService.saveUser(user);
     }
 
     @PutMapping
-    public void updateUser(@RequestBody User user) {
-        userService.updateUser(user);
+    public User updateUser(@RequestBody User user) {
+        return userService.updateUser(user);
     }
 
     @DeleteMapping("/{id}")
